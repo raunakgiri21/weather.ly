@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>weather.ly</title>
+    <!-- normalize -->
+    <link rel="stylesheet" href="./normalize.css" />
+    <!-- font-awesome -->
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
+    />
+    <!-- main css -->
+    <link rel="stylesheet" href="./main.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="card">
+        <div class="grid grid-1">
+          <div class="title">
+            <div class="logo">weather.ly</div> 
+            <div class="title-underline"></div>
+          </div>
+          <!-- Rounded switch -->
+          <label class="switch">
+            <input type="checkbox" id="checkbox">
+            <span class="slider round"></span>
+          </label>
+        </div>
+
+        <div class="grid grid-2">
+          <div class="location">
+            <h4 class="current-location">Guwahati</h4>
+          </div>
+        </div>
+
+        <div class="grid grid-3">
+          <div class="current-weather">
+            <h4 class="temp">29°C</h4>
+            <p class="description">light rain</p>
+          </div>
+          <div class="weather-icon">
+            <img src="http://openweathermap.org/img/wn/01d@2x.png" alt="weather icon" class="wicon">
+          </div>
+        </div>
+
+        <div class="grid grid-4">
+          <div class="details">
+            <p class="pressure">pressure: 1014hpa</p>
+            <p class="humidity">Humidity: 88%</p>
+          </div>
+          <div class="details">
+            <p class="windspeed">windspeed: 1.09m/s</p>
+            <p class="visibility">visibility: 3km</p>
+          </div>
+          <div class="details">
+            <p class="sunrise">sunrise: 5:14am</p>
+            <p class="sunset">sunset: 5:21pm</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <script src="./app.js"></script>
+  </body>
+</html>
