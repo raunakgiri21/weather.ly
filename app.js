@@ -95,6 +95,11 @@ const fettch = function(){
             sunrise = new Date(data.sys.sunrise * 1000).toLocaleTimeString('en-US',{timeZone:data2.zoneName, hour: 'numeric', minute: 'numeric', hour12: true});
             sunset = new Date(data.sys.sunset * 1000).toLocaleTimeString('en-US',{timeZone:data2.zoneName, hour: 'numeric', minute: 'numeric', hour12: true});
             updateHTML(place,temperature,description,pressure,humidity,windspeed,visibility,sunrise,sunset,id,icon)
+        }).catch(err => {
+            console.log('timezonedb error: ',err)
+            sunrise = new Date(data.sys.sunrise * 1000).toLocaleTimeString('en-US',{timeZone:'Asia/Kolkata', hour: 'numeric', minute: 'numeric', hour12: true});
+            sunset = new Date(data.sys.sunset * 1000).toLocaleTimeString('en-US',{timeZone:'Asia/Kolkata', hour: 'numeric', minute: 'numeric', hour12: true});
+            updateHTML(place,temperature,description,pressure,humidity,windspeed,visibility,sunrise,sunset,id,icon)
         })
     });
 }
