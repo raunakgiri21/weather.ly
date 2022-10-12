@@ -3,6 +3,8 @@ let long = '79.066895';
 let lat= '30.734627';
 const timezoneApi = 'C7F6W2XJPD31';
 
+const mediaQuery = window.matchMedia('(max-width: 600px)');
+const grid4 = document.querySelector('.grid-4');
 const _container = document.querySelector('.container');
 const _currentLocation = document.querySelector('.current-location');
 const _temp = document.querySelector('.temp');
@@ -52,7 +54,7 @@ const backgroundList = function(id,icon){
 
 
 
-
+let place,temperature,description,pressure,humidity,windspeed,visibility,sunrise,sunset;
 
 const successCallback = (position) => {
     long = position.coords.longitude;
@@ -65,7 +67,8 @@ const errorCallback = (error) => {
 };
 navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
 
-const updateHTML= function (place,temperature,description,pressure,humidity,windspeed,visibility,sunrise,sunset,id,icon){
+const updateHTML= function (){
+    smallScreen()
     _currentLocation.textContent = place;
     _temp.textContent = `${temperature}°C`;
     _description.textContent = description;
@@ -80,7 +83,6 @@ const updateHTML= function (place,temperature,description,pressure,humidity,wind
 }
 
 const fettch = function(){
-    let place,temperature,description,pressure,humidity,windspeed,visibility,sunrise,sunset,offset;
     data = fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&appid=${weatherApiKey}`).then(res=> res.json()).then(data=> {
         place = data.name;
         temperature = Math.trunc(data.main.temp - 273.15);
@@ -94,13 +96,25 @@ const fettch = function(){
         fetch(`http://api.timezonedb.com/v2.1/get-time-zone?key=${timezoneApi}&format=json&by=position&lat=${lat}&lng=${long}`).then(res=> res.json()).then(data2 => {
             sunrise = new Date(data.sys.sunrise * 1000).toLocaleTimeString('en-US',{timeZone:data2.zoneName, hour: 'numeric', minute: 'numeric', hour12: true});
             sunset = new Date(data.sys.sunset * 1000).toLocaleTimeString('en-US',{timeZone:data2.zoneName, hour: 'numeric', minute: 'numeric', hour12: true});
-            updateHTML(place,temperature,description,pressure,humidity,windspeed,visibility,sunrise,sunset,id,icon)
+            updateHTML()
         }).catch(err => {
             console.log('timezonedb error: ',err)
             sunrise = new Date(data.sys.sunrise * 1000).toLocaleTimeString('en-US',{timeZone:'Asia/Kolkata', hour: 'numeric', minute: 'numeric', hour12: true});
             sunset = new Date(data.sys.sunset * 1000).toLocaleTimeString('en-US',{timeZone:'Asia/Kolkata', hour: 'numeric', minute: 'numeric', hour12: true});
-            updateHTML(place,temperature,description,pressure,humidity,windspeed,visibility,sunrise,sunset,id,icon)
+            updateHTML()
         })
     });
 }
 
+const smallScreen = function(){
+    if(mediaQuery.matches){
+        grid4.innerHTML = `<div class="details">
+        <p class="pressure">pressure: ${pressure} hPa</p>
+        <p class="humidity">Humidity: ${humidity}%</p>
+        <p class="windspeed">windspeed: ${windspeed} kmph</p>
+        <p class="visibility">visibility: ${visibility} km</p>
+        <p class="sunrise">sunrise: ${sunrise}</p>
+        <p class="sunset">sunset: ${sunset}</p>
+      </div>`;
+    }
+}

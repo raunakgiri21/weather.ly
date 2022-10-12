@@ -432,3 +432,29 @@ input:checked + .slider:before {
 .slider.round:before {
   border-radius: 50%;
 }
+
+
+
+
+
+/*
+=======================
+ Phone screen
+=======================
+*/
+
+@media screen and (max-width: 576px){
+  .card{
+    height: 90%;
+  }
+  .details{
+    height: 100%;
+    display: grid;
+    padding-top: 0.25rem;
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(6,35px);
+  }
+  .details p{
+    margin-bottom: 0;
+  }
+}
