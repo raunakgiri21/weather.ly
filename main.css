@@ -265,7 +265,7 @@ Weather App
 .container {
   background: url('./images/day-clear.jpg') center/cover no-repeat fixed;
   height: 100vh;
-  padding: 3rem 2rem;
+  padding: 2rem 2rem;
 }
 .logo{
   font-family: cursive;
@@ -306,7 +306,7 @@ opacity: 0.4;
 .card{
   background: var(--grey-300);
   height: 90%;
-  width: 90%;
+  width: 100%;
   max-width: 500px;
   overflow-y: auto;
   margin: 2rem auto;
@@ -553,6 +553,7 @@ input:checked + .slider:before {
 @media screen and (max-width: 576px){
   .card{
     height: 90%;
+    width: 100%;
   }
   .details{
     height: 100%;
