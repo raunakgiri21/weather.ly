@@ -564,7 +564,10 @@ input:checked + .slider:before {
   }
   .details{
     height: 100%;
+    width: 100%;
     display: grid;
+    padding: 0;
+    margin: auto 1rem;
     padding-top: 0.25rem;
     padding-bottom: 0.25rem;
     grid-template-columns: 1fr;
@@ -573,5 +576,16 @@ input:checked + .slider:before {
   .details p{
     margin-bottom: 0;
     margin-top: 0;
+  }
+  .grid-5 {
+    margin:auto 1rem;
+    margin-bottom: 1.5rem;
+  }
+  .grid-4 {
+    margin: auto 24px;
+    margin-bottom: 0.5rem;
+  }
+  .grid-1 {
+    margin-top: 1.5rem;
   }
 }
