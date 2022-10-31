@@ -284,20 +284,24 @@ Weather App
   border-radius: 5px;
   border: 1px solid var(--grey-500);
 }
+.wrapper {
+  position: relative;
+}
 .suggestions{
   z-index: 99;
-  position: absolute;
   border-radius: 5px;
-  background: var(--grey-600);
+  background: var(--grey-500);
   width: 210px;
+  position: absolute;
 }
-.suggestions option {
-  border-bottom: 0.5px solid black;
+option {
+  border-bottom: 0.5px solid var(--grey-600);
   border-radius: 5px;
   overflow: hidden;
   padding: 0.1rem 0.3rem;
   font-size: small;
   cursor : pointer;
+  height: 30px;
 }
 .title-underline{
 background: var(--red-dark);
@@ -305,7 +309,7 @@ opacity: 0.4;
 }
 .card{
   background: var(--grey-300);
-  height: 90%;
+  height: 95%;
   width: 100%;
   max-width: 500px;
   overflow-y: auto;
@@ -469,10 +473,6 @@ opacity: 0.4;
 
 
 
-
-
-
-
 /* ============
 night mode switch
 ===============
@@ -551,9 +551,16 @@ input:checked + .slider:before {
 */
 
 @media screen and (max-width: 576px){
+  .container{
+    padding: 0;
+  }
+  .searchBar {
+    height: 35px;
+  }
   .card{
-    height: 90%;
+    height: 100%;
     width: 100%;
+    margin: 0;
   }
   .details{
     height: 100%;

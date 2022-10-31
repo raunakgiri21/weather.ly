@@ -1,7 +1,7 @@
 const weatherApiKey = 'a963f967c24b43764454543bed4f55bc';
 let long = '79.066895';
 let lat= '30.734627';
-const timezoneApi = 'C7F6W2XJPD31';
+let usertimezone = 0;
 
 const mediaQuery = window.matchMedia('(max-width: 600px)');
 const grid4 = document.querySelector('.grid-4');
@@ -87,6 +87,7 @@ let place,temperature,description,pressure,humidity,windspeed,visibility,sunrise
 const successCallback = (position) => {
     long = position.coords.longitude;
     lat = position.coords.latitude;
+    usertimezone = 0;
     fettch();
 }; 
 const errorCallback = (error) => {
@@ -135,15 +136,17 @@ const fettch = async function(){
             const {dt, dt_txt} = item;
             const [{description, icon}] = item.weather ;
             const c = new Date(dt_txt);
+            // console.log(c)
             fiveDays[`${c.getDay()}`].max = (fiveDays[`${c.getDay()}`].max < temp_max) ? temp_max : fiveDays[`${c.getDay()}`].max;
             fiveDays[`${c.getDay()}`].min = (fiveDays[`${c.getDay()}`].min > temp_min) ? temp_min : fiveDays[`${c.getDay()}`].min;
             fiveDays[`${c.getDay()}`].icon = icon;
             return ( { temp, temp_max, temp_min, dt, dt_txt, description, icon });
         });
-        const todayForcast = forecast.slice(2,10);
+        const todayForcast = forecast.slice(0,8);
 
         const hourlyHtml = todayForcast.map(item => {
-            let date1 = new Date(item.dt_txt)
+            let date1 = new Date((item.dt + data.city.timezone - (-(new Date()).getTimezoneOffset() * 60))*1000)
+            // console.log(item.dt_txt, date1, new Date((item.dt + data.city.timezone - (-(new Date()).getTimezoneOffset() * 60))*1000))
             const temp = item.temp;
             let icon = item.icon;
             date1 = date1.getHours() ;
@@ -165,7 +168,7 @@ const fettch = async function(){
 
 
         let dailyHtml = 8;
-        let count= new Date();
+        let count= new Date(todayForcast[0].dt_txt);
         count = count.getDay();
         while(fiveDays[`${count}`].max === 99){
             count++;
@@ -173,22 +176,24 @@ const fettch = async function(){
         // console.log(fiveDays[`${count}`])
         dailyHtml = `<div class="single-card-daily">
                         <p class="day">Today</p>
-                        <img src="http://openweathermap.org/img/wn/${fiveDays[`${count}`].icon}@2x.png" alt="card icon" class="wicon">
+                        <img src="http://openweathermap.org/img/wn/${(fiveDays[`${count}`].icon).slice(0,2)}d@2x.png" alt="card icon" class="wicon">
                         <p class="card-temp-max">${(fiveDays[`${count}`].max).toFixed(0)}°C</p>
                         <p class="card-temp-min">${(fiveDays[`${count}`].min).toFixed(0)}°C</p>
                     </div>`;
         const stop = count;
         count++;  
-        // console.log(count)          
+        // console.log(count)  
+        let tomorrow = 0;        
         while(count !== stop){
             if(fiveDays[`${count}`].max !== -99)
             {
                 dailyHtml += `<div class="single-card-daily">
-                <p class="day">${dayName[count]}</p>
-                <img src="http://openweathermap.org/img/wn/${fiveDays[`${count}`].icon}@2x.png" alt="card icon" class="wicon">
+                <p class="day">${tomorrow==0?'Tomorrow':dayName[count]}</p>
+                <img src="http://openweathermap.org/img/wn/${(fiveDays[`${count}`].icon).slice(0,2)}d@2x.png" alt="card icon" class="wicon">
                 <p class="card-temp-max">${(fiveDays[`${count}`].max).toFixed(0)}°C</p>
                 <p class="card-temp-min">${(fiveDays[`${count}`].min).toFixed(0)}°C</p>
                 </div>`;
+                tomorrow = 1;
             }         
             count = (count+1)%7;
         }
