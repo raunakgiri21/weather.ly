@@ -23,6 +23,9 @@ html {
 body {
   margin: 0;
 }
+body::-webkit-scrollbar {
+  display: none;
+}
 
 /**
  * Render the `main` element consistently in IE.
