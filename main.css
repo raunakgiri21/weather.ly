@@ -76,6 +76,9 @@ body {
   line-height: 1.75;
   color: var(--textColor);
 }
+body::-webkit-scrollbar {
+  display: none;
+}
 
 p {
   margin-bottom: 1.5rem;
